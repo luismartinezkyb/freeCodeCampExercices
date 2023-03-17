@@ -1,0 +1,21 @@
+function smallestCommons(arr) {
+  let arrTemp = arr.sort((a, b)=> a-b);
+  let newArr = [];
+  let numMul;
+  let flag = true;
+  let i = 1;
+  for(let i = arrTemp[0]; i<=arrTemp[1]; i++){
+    newArr.push(i);
+  }
+  while(flag){
+    numMul = newArr[newArr.length-1]*i;
+    if(newArr.filter(el=> numMul%el===0).length===newArr.length){
+      flag = false;
+    }
+    i++;
+  }
+  console.log("RESULT", numMul);
+  return numMul;
+}
+
+smallestCommons([23, 18]);

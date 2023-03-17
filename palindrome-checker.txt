@@ -1,0 +1,15 @@
+function palindrome(str) {
+  let newStr = str.toLowerCase()
+  let regex = /\w/g;
+  let newArr = newStr.match(regex)
+  newArr = newArr.filter(el => el!=='_').join('');
+  //console.log(newArr[Math.round(newArr.length/2)-1])
+  let size = newArr.length
+  for(let i= 0; i<newArr.length; i++){
+    if(newArr[i] !== newArr[size-i-1]){
+      return false
+    }
+  }
+  return true
+}
+palindrome("never odd or even");

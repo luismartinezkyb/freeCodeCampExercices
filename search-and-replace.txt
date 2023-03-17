@@ -1,0 +1,16 @@
+function myReplace(str, before, after) {
+  let newStr = "";
+  let newChar = str.split(' ');
+  let index = newChar.indexOf(before);
+  if(/[A-Z]/.test(newChar[index].charAt(0))){
+    newStr = newChar.join(" ").replace(before, after.charAt(0).toUpperCase()+after.slice(1))
+  }//creo el if para saber si es que la palabra que encontramos inicia en mayuscula y si es así entonces la que vamos a reemplazar la cambiamos a mayuscula tmbn
+  else{
+    newStr = newChar.join(" ").replace(before, after.charAt(0).toLowerCase()+after.slice(1))
+  }
+  //En este caso como no inicia en mayuscula procedemos a cambiar todo a minusculas para que no nos de error
+
+  return newStr
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");

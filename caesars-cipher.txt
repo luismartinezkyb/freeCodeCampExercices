@@ -1,0 +1,28 @@
+function rot13(str) {
+  let newStr = str.split('')
+  let newWords = {};
+  let num = 65;
+  let result="";
+  for (let i = 78; i<91; i++) {
+    newWords[String.fromCharCode(num)]=String.fromCharCode(i);
+    num++; 
+  }
+  for(let j = 65; j<78; j++){
+    newWords[String.fromCharCode(num)]=String.fromCharCode(j);
+    num++;
+  }
+  for(let i = 0; i<newStr.length; i++){
+    
+    if(newWords[newStr[i]]){
+      result += newWords[newStr[i]];
+    }else{
+      result += newStr[i];
+    }
+    
+  } 
+  console.log(result)
+  return result
+  
+}
+
+rot13("!SERR PBQR PNZC");

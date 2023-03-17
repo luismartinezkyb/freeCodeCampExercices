@@ -1,0 +1,19 @@
+function convertToRoman(num) {
+  let numbers =[
+    ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+    ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"],
+    ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"],
+    ["", "M", "MM", "MMM", "IV", "D", "DC", "DCC", "DCCC", "CM"]
+    ];
+  let result = [] 
+  let newNum = num.toString().split('')
+  let size = num.toString().split('').length;
+  for (let i = 0; i <size ; i++){
+    let num2= newNum.pop();
+    console.log(num2,i)
+    result.unshift(numbers[i][Number(num2)]);
+  }
+  return result.join('')
+}
+
+convertToRoman(83);

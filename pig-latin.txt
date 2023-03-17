@@ -1,0 +1,22 @@
+function translatePigLatin(str) {
+  let ind1 = [str.indexOf("a"), str.indexOf("e"),str.indexOf("i"), str.indexOf("o"), str.indexOf("u")];
+  //primero trate de crear un arreglo con los indices de las vocales (si es que las tiene)
+  let newArr = ind1.filter(el=>el!==-1);//creo un arreglo con los indices que se encuentren (!-1)
+  
+  if(newArr.length ===0){
+    console.log(str+"may")
+    return str+"ay";
+  }//Si el arreglo es 0 es porque no existen vocales entonces returnamos el string + el string "ay"
+  if(Math.min(...newArr)===0){
+    return str+"way";
+  }//si el indice mas bajo es igual a 0 entonces empieza con vocal y debemos de retornar str+"way";
+  else{
+    let word = str.slice(0, Math.min(...newArr))
+    let word2 = str.slice(Math.min(...newArr))
+    return word2+word+"ay";
+  }
+  //de lo contrario slicezamos el array en 2 y pasamos las consonantes al final y la primera vocal al principio y al final sumamos el string "ay"
+  
+}
+
+translatePigLatin("glove");

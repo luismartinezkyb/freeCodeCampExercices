@@ -1,0 +1,32 @@
+function convertHTML(str) {
+  let characters = {
+      "<": "&lt;",
+      ">": "&gt;",
+      "&": "&amp;",
+      "\"": "&quot;",
+      "\'": "&apos;",
+      "¢": "&cent;",
+      "£": "&pound;",
+      "¥": "&yen;",
+      "€": "&euro;",
+      "©": "&apos;",
+      "®": "&reg;"};// defino un objeto con clave valor de las entidades
+  let newArr = Object.keys(characters);
+  //declaro un array con solo las claves
+  let newStr = str;
+  //asigno el string a un nuevo string para modificarlo
+  for(let i= 0; i<str.length; i++){
+    let index = newArr.indexOf(str[i]);
+    //busco si es que el caracter pertenece a el array de las claves de las entidades
+    if(index!==-1){
+      //si es menos de 1 significa que si existe entonces procedemos a reemplazarlo con el characters[newArr[index]] 
+      //se podría explicar que busca en el objecto caracteres la clave que coincida con la de nuestro arreglo y nuestro index
+      newStr = newStr.replace(str[i], characters[newArr[index]])
+    }
+  }
+  //creo un for para recorrer el string y verificar cada caracter no sea una entidad
+  
+  return newStr;
+}
+
+convertHTML("Dolce's Gabbana");

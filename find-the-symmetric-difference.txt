@@ -1,0 +1,21 @@
+function sym(args) {
+  //console.log(arguments)
+  let result=[];
+  
+  result.push(...arguments)
+  let aux=result[0];
+  
+  for(let i=1; i<result.length; i++){
+    let a = aux.filter(e=>!result[i].includes(e))
+    let b = result[i].filter(e=>!aux.includes(e))
+    aux=[...a, ...b]
+    
+  }
+  
+  
+  return [...new Set(aux)]
+}
+
+sym([1, 2, 3], [5, 2, 1, 4]);
+sym([1, 2, 3, 3], [5, 2, 1, 4])
+sym([1, 2, 5], [2, 3, 5], [3, 4, 5])

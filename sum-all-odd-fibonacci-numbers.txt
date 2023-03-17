@@ -1,0 +1,20 @@
+function sumFibs(num) {
+  let prevNum = 0;
+  let currentNum = 1;
+  let result = 0;
+  let temp;
+  do{
+    //console.log(prevNum, currentNum)
+    if(currentNum % 2 !==0){
+      result += currentNum;
+    }
+    temp = currentNum;
+    currentNum = prevNum + currentNum; 
+    prevNum = temp;
+    
+  }while(currentNum<=num)
+  console.log(result)
+  return result;
+}
+
+sumFibs(75025);

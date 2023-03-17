@@ -1,0 +1,80 @@
+function checkCashRegister(price, cash, cid) {
+  let newCid = cid.join('?')
+  newCid = newCid.split('?')
+  //Tuve que pasar el arreglo a string para hacer un deep clone
+  let newCid2=[]
+  //inicialice una variable para ese clon despues asignarlo
+  let coins = [["PENNY", 0.01], ["NICKEL", 0.05], ["DIME", 0.1], ["QUARTER", 0.25], ["ONE", 1], ["FIVE", 5], ["TEN", 10], ["TWENTY", 20], ["ONE HUNDRED", 100]]
+  //Arreglo para el valor de cada moneda
+  let change = cash-price;
+  //el cambio que espera el cliente
+  let result=0, sum= 0, sumOfCash=0;
+  //variables accumuladoras
+  let newArr = []
+  //declaro mi nuevo array donde iran las monedas de cambio
+  let newChange = {}; 
+  //el objeto que regresaremos
+  let flag;
+  //la bandera para el while
+  for(let i = cid.length-1; i>=0;i--){
+    //for para recorrer las monedas que nos dan como cash-in-drawer
+    flag=true;
+    //inicializamos la bandera en true cada inicio de ciclo
+    sum=0;
+    //la suma es para saber la cantidad de monedas de cada valor por ejemplo 4 dolares etc
+    while(flag){
+
+      let temp2 = result+coins[i][1]
+      let temp = (temp2.toFixed(2) * 100)/100<=change;
+      //temp y temp2 son para verificar si es que la suma del resultado + la moneda actual es menor o igual al cambio para entrar al if, de lo contrario saltara
+      if(coins[i][1]<=change && result<change && cid[i][1]>=coins[i][1] && temp){
+        //if para saber si la moneda es menor o igual al cambio, si el resultado es menor al cambio, si en la caja aún tenemos mas monedas y para evaluar el temp
+        sum+=coins[i][1].toFixed(2) * 100
+        result+=coins[i][1];
+        cid[i][1]= (cid[i][1].toFixed(2) * 100 - coins[i][1].toFixed(2) * 100)/100;
+        //lo que hacemos aqui es primero sumar la cantidad de una moneda usada, luego el resultado le sumamos la moneda que usamos y a el arreglo que nos pasan le restamos una moneda utilizada
+      }else{
+        flag=false;
+      }
+      //si no entra en el if significa que la moneda no entra al resultado y el while sale
+    }//fin while
+    if(sum!==0){
+      newArr.push([coins[i][0], sum/100])
+      }
+      //si la suma de la cantidad de monedas es diferente a 0 significa que si se uso por lo tanto hacemos un push al arreglo en el cual vamos a insertar el nombre de la moneda, la cantidad de billetes utilizados
+    sumOfCash+=cid[i][1];
+    //aqui sumo lo que tiene todo el cajo, si al final me sale 0 significa que el cajon esta vacio
+  }//fin for
+  
+  //regresar al cid a su estado normal
+  for(let j=0; j<newCid.length; j++){
+    //console.log(newCid[j].split(','))
+    newCid2.push(newCid[j].split(','))
+    newCid2[j][1] = Number(newCid2[j][1])
+    //console.log(typeof(newCid2[j][1]))
+  }
+  //Esto es para convertir en arreglo al CID
+  let newRe = result.toFixed(2) * 100;
+  //el resultado lo tenemos que truncar sin tantos decimales
+  console.log(newRe/100, "result", change)
+  //newRe es el resultado y change es el cambio que se supone deben de ser iguales
+  if(newRe/100!==change){
+    newChange.status="INSUFFICIENT_FUNDS";
+    newChange.change= []
+  }
+  else if(sumOfCash!==0){
+    newChange.status="OPEN";
+    newChange.change=newArr
+  }
+  else if(sumOfCash===0){
+    newChange.status="CLOSED";
+    newChange.change=newCid2;
+  }
+  //estatus de if donde si es diferente del cambio el resultado significa que o no hay monedas suficientes o no podemos entregarlo con exactitud
+  //el segundo if dice que si la suma del efectivo total en el cajero es diferente de 0 significa que la caja puede seguir abierta un rato mas así que le mandamos el cambio del newArr
+  //el ultimo significa que la caja tiene 0 de cash por lo cual es mejor cerrarla y le maandamos el arreglo que fue convertido a string para que se guarde correctamente
+  
+  return newChange;
+}
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);

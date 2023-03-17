@@ -1,0 +1,30 @@
+function steamrollArray(arr) {
+  let arr2 = [];
+  const checkArr = (arr1) =>{
+    for(let i = 0; i<arr1.length; i++){
+      
+      if(typeof(arr1[i]) === "object"){
+        checkArr(arr1[i]);
+      }
+      else{
+        arr2.push(arr1[i]);
+      }
+    }
+    //console.log(arr2)
+    return arr2;
+  } 
+  for(let i= 0; i<arr.length; i++){
+    if(arr[i].toString()==="[object Object]"){
+      arr2.push({})
+    }
+    if(typeof(arr[i]) === "object"){
+      checkArr(arr[i]);
+    }else{
+      arr2.push(arr[i]);
+    }
+  }
+  console.log(arr2)
+  return arr2;
+}
+
+steamrollArray([1, {}, [2], [3, [4]]]);
